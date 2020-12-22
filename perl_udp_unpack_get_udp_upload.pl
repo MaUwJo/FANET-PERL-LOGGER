@@ -997,7 +997,12 @@ FANET_TYP_3.*,
 FANET_TYP_4.*,
 FANET_TYP_7.*,
 FANET_TYP_8.*,
-FANET_TYP_9.*
+FANET_TYP_9.*, 
+case
+        `FANET_Header`.`Type` when 1 then point(`FANET_TYP_1`.`Type1Longitude`, `FANET_TYP_1`.`Type1Latitude`)
+        when 7 then point(`FANET_TYP_7`.`Type7Longitude`, `FANET_TYP_7`.`Type7Latitude`)
+        when 9 then point(`FANET_TYP_9`.`Type9Longitude`, `FANET_TYP_9`.`Type9Latitude`)
+    end AS `geo_point` 
 FROM FANET_Header
 left outer join FANET_NAME on FANET_Header.UniqueID = FANET_NAME.UniqueID and FANET_Header.Manufacturer = FANET_NAME.Manufacturer
 left outer join FANET_ExtendedHeader on ExtendedHeaderID = ID
@@ -1026,5 +1031,3 @@ FROM FANET_ALL_Messages
 group by Manufacturer, name,UniqueID
 END_SQL
 }
-
-
