@@ -1,0 +1,12 @@
+[Unit]
+Description=perl fanet
+After=syslog.target network.target
+After=mysql.service ntp.service
+
+[Service]
+ExecStart=/usr/local/bin/perl_fanet.pl  GETfromUDP
+ExecReload=
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
